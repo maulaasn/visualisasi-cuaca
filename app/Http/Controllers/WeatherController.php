@@ -16,7 +16,7 @@ class WeatherController extends Controller
 
     public function index()
     {
-        return view('map');
+        return view('pages.map');
     }
 
     public function getWeatherData()
@@ -25,14 +25,14 @@ class WeatherController extends Controller
 
         if (empty($data)) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal mengambil data BMKG',
             ], 500);
         }
 
         return response()->json([
             'status' => 'success',
-            'data'   => $data,
+            'data' => $data,
         ]);
     }
 }
