@@ -6,7 +6,14 @@
     <title>Login Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Inter', sans-serif; } </style>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        
+        input::-ms-reveal,
+        input::-ms-clear { 
+            display: none;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 h-screen flex items-center justify-center p-4 md:p-10">
 
