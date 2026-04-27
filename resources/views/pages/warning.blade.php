@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @push('styles')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 @endpush
 
 @section('content')
-<div class="warning-container p-5 md:p-[30px_40px] m-0 w-full box-border">
+<div class="warning-container p-6 md:p-[30px_40px] m-0 w-full box-border">
     <div class="warning-header mb-6">
         <h1 class="page-title text-base md:text-[20px] font-bold text-slate-800 m-0 mb-2">Informasi Peringatan Dini</h1>
         <p class="last-update text-xs md:text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
@@ -13,10 +13,9 @@
 
     @if($warning)
     <div class="warning-card bg-orange-50 border border-orange-200 rounded-lg overflow-hidden w-full transition-all duration-300 max-h-[calc(100vh-130px)] h-auto flex flex-col">
-        <div class="warning-card-header p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-start gap-3 md:gap-0 cursor-pointer" id="warningToggle">
-            
+        <div class="warning-card-header p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-start gap-3 md:gap-0 cursor-pointer" id="warningToggle">     
             <div class="warning-title-wrapper flex gap-4 items-start">
-                <svg class="shrink-0 w-6 h-7 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                <svg class="shrink-0 w-6 h-7 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                     <line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
@@ -34,7 +33,7 @@
 
         <div class="warning-details hidden [&.show]:block px-4 md:px-6 pb-4 border-t border-dashed border-orange-200 mt-0 md:mt-2.5 pt-4 md:pt-6 overflow-y-auto flex-none" id="warningDetails">
             <div class="map-content w-full">
-                <div id="mini-map" class="w-full h-[220px] md:h-[285px] rounded-lg border border-orange-200 z-10"></div>
+                <div id="mini-map" class="w-full h-[190px] md:h-[270px] rounded-lg border border-orange-200 z-10"></div>
             </div>
             
             <div class="warning-footer mt-4 pt-4 border-t border-dashed border-orange-200 text-right text-[11px] md:text-xs text-slate-400">

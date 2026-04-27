@@ -13,7 +13,7 @@ class FetchCuaca extends Command
 
     public function handle(BMKGForecast $bmkgForecast)
     {
-        $this->info('Memulai penarikan data dari BMKG. Proses ini butuh waktu beberapa menit...');
+        $this->info('Memulai penarikan data dari BMKG...');
 
         $data = $bmkgForecast->downloadDataTerkini($this);
 

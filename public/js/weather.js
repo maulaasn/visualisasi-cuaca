@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     const map = L.map('map', { zoomControl: false }).setView([-7.5360639, 112.2384017], 8);
     L.control.zoom({ position: 'topleft' }).addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
         'Situbondo', 'Sumenep', 'Surabaya', 'Trenggalek', 'Tuban',
         'Tulungagung'
     ];
-    
+
     const geoJsonUrls = daftarKabupaten.map(nama => `/assets/geojson/${nama}.geojson`);
-    
+
     let weatherDataMap = {};
     let weatherKeys = [];
     let activeLayer = null;
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getWeatherColor(code) {
         const colors = {
-            '0':  '#F1C40F', '1':  '#F4D03F', '2':  '#F4D03F', '3':  '#F9E79F',
-            '4':  '#D4AC0D', '5':  '#2C3E50', '10': '#7F8C8D', '45': '#7F8C8D',
+            '0': '#F1C40F', '1': '#F4D03F', '2': '#F4D03F', '3': '#F9E79F',
+            '4': '#D4AC0D', '5': '#2C3E50', '10': '#7F8C8D', '45': '#7F8C8D',
             '60': '#85C1E9', '61': '#5DADE2', '63': '#3498DB', '97': '#283747',
         };
         return colors[String(code)] || '#FFFFFF';
@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function findWeather(name3) {
         const key = normalizeKey(name3);
         if (weatherDataMap[key]) return weatherDataMap[key];
+        if (weatherDataMap[name3]) return weatherDataMap[name3];
         for (const wKey of weatherKeys) {
+            const normalizedWKey = normalizeKey(wKey);
             if (wKey === key) return weatherDataMap[wKey];
             if (wKey.includes(key) || key.includes(wKey)) return weatherDataMap[wKey];
         }
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function generatePopupContent(feature, weather) {
         const kecamatan = feature.properties.NAME_3 || 'Kecamatan Tidak Diketahui';
         const kabupaten = feature.properties.NAME_2 || 'Kabupaten Tidak Diketahui';
-        
+
         if (!weather) {
             return `
             <div class="popup-header">
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
             forecastHtml = `
             <div class="forecast-section">
                 <div class="forecast-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     Prakiraan Cuaca
                 </div>
                 <div class="forecast-list">
@@ -192,20 +194,20 @@ document.addEventListener('DOMContentLoaded', function () {
     function styleLayer(layer, weather) {
         if (weather) {
             layer.setStyle({
-                fillColor:   getWeatherColor(weather.weather_code),
-                weight:      1,
-                opacity:     1,
-                color:       'white',
-                dashArray:   '3',
+                fillColor: getWeatherColor(weather.weather_code),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
                 fillOpacity: 0.65,
             });
         } else {
             layer.setStyle({
-                fillColor:   '#e2e8f0',
-                weight:      1,
-                opacity:     1,
-                color:       'white',
-                dashArray:   '3',
+                fillColor: '#e2e8f0',
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
                 fillOpacity: 0.3,
             });
         }
@@ -227,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function onEachFeature(feature, layer) {
         const weather = findWeather(feature.properties.NAME_3);
         const desc = weather ? weather.weather_desc : 'Tanpa Data';
-        
+
         allPolygons.push({ layer: layer, desc: desc });
         styleLayer(layer, weather);
 
@@ -257,19 +259,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 activeLayer.bringToFront();
                 if (marker) map.removeLayer(marker);
                 marker = L.marker(e.latlng, { icon: redIcon }).addTo(map);
-                
+
                 const isMobile = window.innerWidth <= 768;
                 const popupWidth = isMobile ? 280 : 380;
-                
+
                 L.popup({
                     className: 'custom-popup',
-                    minWidth:  popupWidth,
-                    maxWidth:  popupWidth,
-                    offset:    [0, -20],
+                    minWidth: popupWidth,
+                    maxWidth: popupWidth,
+                    offset: [0, -20],
                 })
-                .setLatLng(e.latlng)
-                .setContent(generatePopupContent(feature, weather))
-                .openOn(map);
+                    .setLatLng(e.latlng)
+                    .setContent(generatePopupContent(feature, weather))
+                    .openOn(map);
             },
         });
     }
@@ -290,13 +292,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         allPolygons.forEach(item => {
             let isVisible = true;
-            
+
             if (item.desc !== 'Tanpa Data') {
                 let currentDesc = item.desc;
                 if (currentDesc === 'Kabut' || currentDesc === 'Asap') {
                     currentDesc = 'Kabut/Asap';
                 }
-                
+
                 if (!activeFilters.includes(currentDesc)) {
                     isVisible = false;
                 }
@@ -323,28 +325,38 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const weatherResponse = await fetch('/api/weather');
             const weatherJson = await weatherResponse.json();
-            
+
             if (weatherJson.status === 'success') {
                 weatherDataMap = weatherJson.data;
                 weatherKeys = Object.keys(weatherDataMap);
             }
-            
-            const loadPromises = geoJsonUrls.map(async (url) => {
+
+            for (const url of geoJsonUrls) {
                 try {
                     const geoResponse = await fetch(url);
-                    if (!geoResponse.ok) return;
+                    if (!geoResponse.ok) {
+                        console.error(`Gagal memuat: ${url} (Status: ${geoResponse.status})`);
+                        continue;
+                    }
                     const geoData = await geoResponse.json();
-                    L.geoJSON(geoData, { onEachFeature }).addTo(map);
-                } catch (err) {}
-            });
-            
-            await Promise.all(loadPromises);
-            
-            document.getElementById('loading-overlay').style.display = 'none';
+                    L.geoJSON(geoData, { onEachFeature: onEachFeature }).addTo(map);
+                } catch (err) {
+                    console.error(`Error parsing di: ${url}`, err);
+                }
+            }
+
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+
             applyFilter();
-            
+
         } catch (error) {
-            document.getElementById('loading-overlay').innerHTML = '<p style="color:#ef4444;">Gagal memuat data. Coba refresh halaman.</p>';
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.innerHTML = '<p style="color:#ef4444; font-weight:600;">Gagal memuat data. Coba refresh halaman.</p>';
+            }
         }
     }
 
