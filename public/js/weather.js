@@ -65,9 +65,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getWeatherColor(code) {
         const colors = {
-            '0': '#F1C40F', '1': '#F4D03F', '2': '#F4D03F', '3': '#F9E79F',
-            '4': '#D4AC0D', '5': '#2C3E50', '10': '#7F8C8D', '45': '#7F8C8D',
-            '60': '#85C1E9', '61': '#5DADE2', '63': '#3498DB', '97': '#283747',
+            '0': '#F1C40F',   // Cerah
+            '1': '#F4D03F',   // Cerah Berawan
+            '2': '#F4D03F',   // Cerah Berawan
+            '3': '#F9E79F',   // Berawan
+            '4': '#D4AC0D',   // Berawan Tebal
+            '5': '#2C3E50',   // Udara Kabur
+            '10': '#7F8C8D',  // Asap
+            '45': '#7F8C8D',  // Kabut
+            '60': '#85C1E9',  // Hujan Ringan
+            '61': '#5DADE2',  // Hujan Sedang
+            '63': '#3498DB',  // Hujan Lebat
+            '95': '#1A5276',  // Hujan Petir
+            '97': '#154360',  // Hujan Petir Hebat 
         };
         return colors[String(code)] || '#FFFFFF';
     }
@@ -118,19 +128,33 @@ document.addEventListener('DOMContentLoaded', function () {
         let forecastHtml = '';
 
         if (weather.forecasts && weather.forecasts.length > 0) {
+            const dailyForecasts = weather.forecasts;
+
             forecastHtml = `
+            <style>
+                .vertical-scroll-forecast::-webkit-scrollbar { width: 4px; }
+                .vertical-scroll-forecast::-webkit-scrollbar-track { background: #f8fafc; border-radius: 4px; }
+                .vertical-scroll-forecast::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+                .vertical-scroll-forecast::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+            </style>
             <div class="forecast-section">
-                <div class="forecast-title">
+                <div class="forecast-title" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                     <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     Prakiraan Cuaca
                 </div>
-                <div class="forecast-list">
-                    ${weather.forecasts.map(f => `
-                        <div class="forecast-item">
-                            <span class="forecast-time">${formatWIBDate(f.datetime)}</span>
-                            <span class="forecast-desc">${f.weather_desc}</span>
+                <div class="vertical-scroll-forecast" style="display: flex; flex-direction: column; max-height: 115px; overflow-y: auto; padding-right: 6px;">
+                    ${dailyForecasts.map((f, index) => {
+                const isLast = index === dailyForecasts.length - 1;
+                const borderBottom = isLast ? 'none' : '1px dashed #e2e8f0';
+
+                // Menghilangkan parameter suhu di baris ini
+                return `
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #334155; padding: 6px 0; border-bottom: ${borderBottom}; width: 100%;">
+                            <span style="color: #475569;">${formatWIBDate(f.datetime)}</span>
+                            <span style="text-align: right; font-weight: 500;">${f.weather_desc}</span>
                         </div>
-                    `).join('')}
+                        `;
+            }).join('')}
                 </div>
             </div>
             `;

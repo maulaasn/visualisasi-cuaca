@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-slate-300 relative z-[3000]">
+<nav class="bg-white border-b border-slate-300 sticky top-0 z-[3000]">
     <div class="flex px-5 md:px-10 h-[70px]">
 
         <div class="flex items-center mr-auto md:mr-10 h-full">
@@ -30,7 +30,7 @@
             </a>
 
             <a href="{{ route('warning.index') }}" class="flex items-center gap-2 px-5 py-4 md:py-0 font-medium text-[15px] md:h-full transition-colors duration-200 border-l-[3px] md:border-l-0 md:border-b-[3px]
-               {{ request()->routeIs('warning.index') ? 'text-blue-600 border-blue-600' : 'text-slate-500 border-transparent hover:text-blue-600' }}">
+               {{ request()->routeIs('warning.*') ? 'text-blue-600 border-blue-600' : 'text-slate-500 border-transparent hover:text-blue-600' }}">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="12" y1="8" x2="12" y2="12"></line>

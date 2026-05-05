@@ -1,5 +1,9 @@
 @extends('admin.layouts.sidebar')
 
+@push('styles')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+@endpush 
+
 @section('content')
     <div class="map-container flex-1 p-3 md:p-[30px] relative h-full">
         
@@ -39,7 +43,7 @@
             <div class="legend-item flex items-center mb-1.5 last:mb-0"><span class="color-box w-[18px] h-[18px] mr-2.5 rounded-[3px] border border-black/10" style="background: #85C1E9;"></span> Hujan Ringan</div>
             <div class="legend-item flex items-center mb-1.5 last:mb-0"><span class="color-box w-[18px] h-[18px] mr-2.5 rounded-[3px] border border-black/10" style="background: #5DADE2;"></span> Hujan Sedang</div>
             <div class="legend-item flex items-center mb-1.5 last:mb-0"><span class="color-box w-[18px] h-[18px] mr-2.5 rounded-[3px] border border-black/10" style="background: #3498DB;"></span> Hujan Lebat</div>
-            <div class="legend-item flex items-center mb-1.5 last:mb-0"><span class="color-box w-[18px] h-[18px] mr-2.5 rounded-[3px] border border-black/10" style="background: #283747;"></span> Hujan Petir</div>
+            <div class="legend-item flex items-center mb-1.5 last:mb-0"><span class="color-box w-[18px] h-[18px] mr-2.5 rounded-[3px] border border-black/10" style="background: #1A5276;"></span> Hujan Petir</div>
         </div>
     </div>
 @endsection

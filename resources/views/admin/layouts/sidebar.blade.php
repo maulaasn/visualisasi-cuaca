@@ -17,7 +17,7 @@
 </head>
 <body class="bg-slate-50 flex h-screen overflow-hidden relative">
 
-    <div class="w-[280px] bg-[#1b2579] text-white flex flex-col shrink-0 shadow-xl z-20">
+    <div class="w-[290px] bg-[#1b2579] text-white flex flex-col shrink-0 shadow-xl z-20">
         
         <div class="pt-8 pb-6 flex flex-col items-center border-b border-white/10 mx-5">
             <div class="bg-[#c2cae6] px-5 py-2.5 rounded-full flex items-center gap-1.5 shadow-sm">
@@ -42,13 +42,13 @@
                 </div>
                 <div>
                     <div class="font-bold text-[13px] mb-0.5">Peta Explorer</div>
-                    <div class="text-[11px] text-blue-200 tracking-wide">Jelajahi wilayah dengan detail</div>
+                    <div class="text-[12px] text-blue-200 tracking-wide">Jelajahi wilayah dengan detail</div>
                 </div>
             </a>
 
             <a href="{{ route('admin.warning') }}" 
                class="flex items-center gap-4 p-3.5 rounded-xl transition-all duration-200 border-[1.5px]
-               {{ request()->routeIs('admin.warning') 
+               {{ request()->routeIs('admin.warning', 'admin.warning.detail') 
                   ? 'bg-[#253294] border-[#6ba4ff] shadow-md' 
                   : 'bg-[#202a85] border-transparent hover:bg-[#253294]/80' }}">
                 <div class="text-white shrink-0">
@@ -60,7 +60,7 @@
                 </div>
                 <div>
                     <div class="font-bold text-[13px] mb-0.5">Peringatan Dini Cuaca</div>
-                    <div class="text-[11px] text-blue-200 tracking-wide">Pantau cuaca ekstrem</div>
+                    <div class="text-[12px] text-blue-200 tracking-wide">Pantau cuaca ekstrem</div>
                 </div>
             </a>
 
@@ -80,7 +80,7 @@
                 </div>
                 <div>
                     <div class="font-bold text-[13px] mb-0.5">Berita Terbaru</div>
-                    <div class="text-[11px] text-blue-200 tracking-wide">Update informasi terdepan</div>
+                    <div class="text-[12px] text-blue-200 tracking-wide">Update informasi terkini</div>
                 </div>
             </a>
 

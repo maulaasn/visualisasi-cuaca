@@ -60,35 +60,45 @@ class BMKGWarning
 
             $description = (string)$info->description;
             $headline = (string)$info->headline;
+            $event = (string)$info->event; 
 
-            $polygons = [];
-            if (isset($info->area->polygon)) {
-                foreach ($info->area->polygon as $poly) {
-                    $points = explode(' ', trim((string)$poly));
-                    $latlngs = [];
-                    foreach ($points as $point) {
-                        if (empty($point)) continue;
-                        $coords = explode(',', $point);
-                        if (count($coords) == 2) {
-                            $latlngs[] = [(float)$coords[0], (float)$coords[1]];
+            $description = str_replace('khususnya di . Kondisi', 'di wilayah tersebut. Kondisi', $description);
+            $description = str_replace('khususnya di .', 'di wilayah terkait.', $description);
+
+            $areasData = [];
+            if (isset($info->area)) {
+                foreach ($info->area as $areaNode) {
+                    $areaName = (string)$areaNode->areaDesc;
+                    
+                    if (isset($areaNode->polygon)) {
+                        foreach ($areaNode->polygon as $poly) {
+                            $points = explode(' ', trim((string)$poly));
+                            $latlngs = [];
+                            foreach ($points as $point) {
+                                if (empty($point)) continue;
+                                $coords = explode(',', $point);
+                                if (count($coords) == 2) {
+                                    $latlngs[] = [(float)$coords[0], (float)$coords[1]];
+                                }
+                            }
+                            if (!empty($latlngs)) {
+                                $areasData[] = [
+                                    'name' => $areaName,
+                                    'coordinates' => $latlngs
+                                ];
+                            }
                         }
-                    }
-                    if (!empty($latlngs)) {
-                        $polygons[] = $latlngs;
                     }
                 }
             }
 
-            $parsedData = $this->parseDescription($description);
-
             $data = [
                 'title' => $headline,
+                'event' => $event,
                 'effective_wib' => $effective->format('H:i') . ' WIB',
                 'expires_wib' => $expires->format('H:i') . ' WIB',
                 'description' => $description,
-                'polygons' => $polygons,
-                'potensi' => $parsedData['potensi'],
-                'meluas' => $parsedData['meluas'],
+                'areas' => $areasData, 
             ];
 
             Cache::put('bmkg.warning.jatim', $data, now()->addMinutes(5));
@@ -97,31 +107,5 @@ class BMKGWarning
         } catch (\Exception $e) {
             return null;
         }
-    }
-
-    private function parseDescription(string $description)
-    {
-        $parts = preg_split('/dan dapat meluas ke wilayah/i', $description);
-        $potensiText = $parts[0] ?? '';
-        $meluasText = $parts[1] ?? '';
-
-        return [
-            'potensi' => $this->extractKabKec($potensiText),
-            'meluas' => $this->extractKabKec($meluasText),
-        ];
-    }
-
-    private function extractKabKec(string $text)
-    {
-        $result = [];
-        preg_match_all('/(Kab\.|Kota)\s+([A-Za-z\s]+):\s+([^,\n.]+(?:,\s*[^,\n.]+)*)/i', $text, $matches, PREG_SET_ORDER);
-
-        foreach ($matches as $match) {
-            $kabName = trim($match[1]) . ' ' . trim($match[2]);
-            $kecamatans = array_map('trim', explode(',', $match[3]));
-            $result[$kabName] = $kecamatans;
-        }
-
-        return $result;
     }
 }

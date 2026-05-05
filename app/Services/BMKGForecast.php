@@ -78,7 +78,7 @@ class BMKGForecast
                 $bar->advance();
             }
 
-            usleep(1000000);
+            usleep(1000000); // Jeda 1 detik agar tidak kena rate limit API BMKG
         }
 
         if ($bar) {
@@ -128,7 +128,6 @@ class BMKGForecast
             }
 
             $cuaca = null;
-            $forecasts = [];
             $currentTimestamp = time();
             $closestTimeDiff = PHP_INT_MAX;
             $closestIndex = 0;
@@ -153,72 +152,34 @@ class BMKGForecast
                 return null;
             }
 
-            $targetHours = ['00', '06', '12', '18'];
-            $count = 0;
+            $forecasts = [];
             $seenDates = [];
+            $limitData = 8; 
+            $count = 0;
 
             for ($i = $closestIndex + 1; $i < count($allDataWaktu); $i++) {
                 $fData = $allDataWaktu[$i];
                 $timeString = $fData['local_datetime'] ?? '';
-                if (empty($timeString)) {
-                    continue;
-                }
+                
+                if (empty($timeString)) continue;
 
                 $timestamp = strtotime($timeString);
-                if (!$timestamp) {
-                    continue;
-                }
+                if (!$timestamp) continue;
 
-                $hour = date('H', $timestamp);
                 $dateHourKey = date('Y-m-d H', $timestamp);
 
-                if (in_array($hour, $targetHours) && !isset($seenDates[$dateHourKey])) {
+                if (!isset($seenDates[$dateHourKey])) {
                     $forecasts[] = [
                         'datetime'     => $timeString,
                         'weather_desc' => $fData['weather_desc'] ?? '-',
                         'weather_code' => (string) ($fData['weather'] ?? 0),
+                        'temp'         => $fData['t'] ?? 0, // Suhu ditambahkan di sini
                     ];
                     $seenDates[$dateHourKey] = true;
                     $count++;
-                    
-                    if ($count >= 4) {
+
+                    if ($count >= $limitData) {
                         break;
-                    }
-                }
-            }
-
-            if (count($forecasts) < 4) {
-                $forecasts = [];
-                $count = 0;
-                $seenDates = [];
-
-                for ($i = $closestIndex + 1; $i < count($allDataWaktu); $i++) {
-                    $fData = $allDataWaktu[$i];
-                    $timeString = $fData['local_datetime'] ?? '';
-                    if (empty($timeString)) {
-                        continue;
-                    }
-
-                    $timestamp = strtotime($timeString);
-                    if (!$timestamp) {
-                        continue;
-                    }
-
-                    $dateHourKey = date('Y-m-d H', $timestamp);
-                    if (!isset($seenDates[$dateHourKey])) {
-                        $forecasts[] = [
-                            'datetime'     => $timeString,
-                            'weather_desc' => $fData['weather_desc'] ?? '-',
-                            'weather_code' => (string) ($fData['weather'] ?? 0),
-                        ];
-                        $seenDates[$dateHourKey] = true;
-                        $count++;
-
-                        $i++;
-
-                        if ($count >= 4) {
-                            break;
-                        }
                     }
                 }
             }

@@ -106,7 +106,7 @@
     }
 
     .forecast-section {
-        padding: 12px 4px 12px 4px;
+        padding: 12px 2px 12px 4px;
         border-top: 1px solid #f1f5f9;
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
@@ -202,7 +202,7 @@
         }
 
         .forecast-section {
-            padding: 12px 1px 10px 2px;
+            padding: 12px 2px 10px 2px;
         }
     }
 }
