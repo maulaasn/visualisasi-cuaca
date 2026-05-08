@@ -25,7 +25,7 @@ class FetchCuaca extends Command
                 $this->info('Selesai! Data berhasil disimpan.');
                 Log::info('Berhasil memperbarui data cuaca Jatim.');
             } else {
-                $this->warn('Data dari BMKG kosong, file JSON lama dipertahankan.');
+                $this->warn('Data dari BMKG kosong, menampilkan data terakhir yang tersedia');
                 Log::warning('Respon API berhasil, tetapi data kosong.');
             }
 
