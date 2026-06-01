@@ -97,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function () {
         filterCuaca.classList.toggle('hidden', isSuhu);
         legendCuaca.classList.toggle('hidden', isSuhu);
 
+        map.closePopup();
+
         forceResetAllLayers();
         applyFilter();
     }
@@ -152,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
             '65': '#F97316',
             '95': '#EF4444',
             '97': '#A855F7',
-            // --- TAMBAHAN KODE MALAM BMKG ---
             '100': '#FCD34D', // Cerah Malam
             '101': '#FDE68A', // Cerah Berawan Malam
             '102': '#FDE68A', // Cerah Berawan Malam
@@ -235,14 +236,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (weather.forecasts && weather.forecasts.length > 0) {
             const dailyForecasts = weather.forecasts;
+            const forecastTitle = currentVisMode === 'suhu' ? 'Prakiraan Suhu' : 'Prakiraan Cuaca';
+
             forecastHtml = `
             <style>
-                /* Menyembunyikan scrollbar untuk IE, Edge dan Firefox */
                 .vertical-scroll-forecast {
                     -ms-overflow-style: none;  
                     scrollbar-width: none;  
                 }
-                /* Menyembunyikan scrollbar untuk Chrome, Safari dan Opera */
                 .vertical-scroll-forecast::-webkit-scrollbar { 
                     display: none; 
                 }
@@ -250,17 +251,20 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="forecast-section">
                 <div class="forecast-title" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                     <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Prakiraan Cuaca
+                    ${forecastTitle}
                 </div>
-                <!-- Hapus padding-right: 6px karena scrollbar sudah hilang -->
                 <div class="vertical-scroll-forecast" style="display: flex; flex-direction: column; max-height: 115px; overflow-y: auto;">
                     ${dailyForecasts.map((f, index) => {
                 const isLast = index === dailyForecasts.length - 1;
                 const borderBottom = isLast ? 'none' : '1px dashed #e2e8f0';
+                
+                let tempVal = f.temp !== undefined ? f.temp : (f.t !== undefined ? f.t : f.tempC);
+                const infoKanan = currentVisMode === 'suhu' ? getTemperatureCategory(tempVal) : f.weather_desc;
+
                 return `
                         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #334155; padding: 6px 0; border-bottom: ${borderBottom}; width: 100%;">
                             <span style="color: #475569;">${formatWIBDate(f.datetime)}</span>
-                            <span style="text-align: right; font-weight: 500;">${f.weather_desc}</span>
+                            <span style="text-align: right; font-weight: 500;">${infoKanan}</span>
                         </div>
                         `;
             }).join('')}

@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('cuaca:fetch-warning-jatim')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('cuaca:fetch-jatim')->everyThreeHours()->withoutOverlapping();
     }
 
     protected function commands()

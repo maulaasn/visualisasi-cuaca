@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 class FetchCuaca extends Command
 {
     protected $signature = 'cuaca:fetch-jatim';
-    protected $description = 'Menarik data cuaca seluruh kecamatan Jatim dari API BMKG (Eksekusi Manual)';
+    protected $description = 'Menarik data cuaca seluruh kecamatan Jatim dari API BMKG';
 
     public function handle(BMKGForecast $bmkgForecast)
     {
