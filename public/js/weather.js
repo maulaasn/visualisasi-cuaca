@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const map = L.map('map', { zoomControl: false }).setView([-7.5360639, 112.2384017], 8);
     L.control.zoom({ position: 'topleft' }).addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -35,6 +34,72 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentlyHovered = null;
     let marker = null;
     let allPolygons = [];
+    let currentVisMode = 'suhu';
+
+    const btnModeSuhu = document.getElementById('btn-mode-suhu');
+    const btnModeCuaca = document.getElementById('btn-mode-cuaca');
+    const filterSuhu = document.getElementById('filter-suhu');
+    const filterCuaca = document.getElementById('filter-cuaca');
+    const legendSuhu = document.getElementById('legend-suhu');
+    const legendCuaca = document.getElementById('legend-cuaca');
+    const btnLapisan = document.getElementById('btn-lapisan');
+    const layerPopup = document.getElementById('layer-popup');
+
+    btnModeSuhu.addEventListener('click', () => {
+        setMode('suhu');
+        layerPopup.classList.add('hidden');
+    });
+
+    btnModeCuaca.addEventListener('click', () => {
+        setMode('cuaca');
+        layerPopup.classList.add('hidden');
+    });
+
+    btnLapisan.addEventListener('click', (e) => {
+        e.stopPropagation();
+        layerPopup.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!btnLapisan.contains(e.target) && !layerPopup.contains(e.target)) {
+            layerPopup.classList.add('hidden');
+        }
+    });
+
+    function setMode(mode) {
+        currentVisMode = mode;
+        const isSuhu = mode === 'suhu';
+        
+        const iconSuhu = document.getElementById('icon-suhu');
+        const iconCuaca = document.getElementById('icon-cuaca');
+        const bgSuhu = document.getElementById('bg-suhu');
+        const bgCuaca = document.getElementById('bg-cuaca');
+
+        const activeContainer = 'w-[52px] h-[52px] rounded-lg border-2 border-[#1a73e8] transition-all relative overflow-hidden flex items-center justify-center text-[#1a73e8] shadow-sm bg-white';
+        const inactiveContainer = 'w-[52px] h-[52px] rounded-lg border-2 border-transparent transition-all relative overflow-hidden flex items-center justify-center text-slate-500 shadow-sm bg-slate-50 group-hover:bg-white';
+
+        if (isSuhu) {
+            iconSuhu.className = activeContainer;
+            iconCuaca.className = inactiveContainer;
+            
+            if (bgSuhu) bgSuhu.className = 'absolute inset-0 bg-gradient-to-br from-orange-100 via-white to-blue-100 opacity-100 transition-opacity duration-300';
+            if (bgCuaca) bgCuaca.className = 'absolute inset-0 bg-gradient-to-br from-slate-200 via-white to-sky-100 opacity-30 group-hover:opacity-60 transition-opacity duration-300';
+        } else {
+            iconCuaca.className = activeContainer;
+            iconSuhu.className = inactiveContainer;
+            
+            if (bgSuhu) bgSuhu.className = 'absolute inset-0 bg-gradient-to-br from-orange-100 via-white to-blue-100 opacity-30 group-hover:opacity-60 transition-opacity duration-300';
+            if (bgCuaca) bgCuaca.className = 'absolute inset-0 bg-gradient-to-br from-slate-200 via-white to-sky-100 opacity-100 transition-opacity duration-300';
+        }
+
+        filterSuhu.classList.toggle('hidden', !isSuhu);
+        legendSuhu.classList.toggle('hidden', !isSuhu);
+        filterCuaca.classList.toggle('hidden', isSuhu);
+        legendCuaca.classList.toggle('hidden', isSuhu);
+
+        forceResetAllLayers();
+        applyFilter();
+    }
 
     function formatWIBDate(dateString) {
         if (!dateString) return '';
@@ -63,23 +128,65 @@ document.addEventListener('DOMContentLoaded', function () {
         return directions[cleanDir] || dir;
     }
 
+    function getStandardizedDesc(code, originalDesc) {
+        const cleanCode = String(parseInt(code, 10));
+        if (['0', '100'].includes(cleanCode)) return 'Cerah';
+        if (['1', '2', '101', '102'].includes(cleanCode)) return 'Cerah Berawan';
+        return originalDesc;
+    }
+
     function getWeatherColor(code) {
+        const cleanCode = String(parseInt(code, 10));
         const colors = {
-            '0': '#F1C40F',   // Cerah
-            '1': '#F4D03F',   // Cerah Berawan
-            '2': '#F4D03F',   // Cerah Berawan
-            '3': '#F9E79F',   // Berawan
-            '4': '#D4AC0D',   // Berawan Tebal
-            '5': '#2C3E50',   // Udara Kabur
-            '10': '#7F8C8D',  // Asap
-            '45': '#7F8C8D',  // Kabut
-            '60': '#85C1E9',  // Hujan Ringan
-            '61': '#5DADE2',  // Hujan Sedang
-            '63': '#3498DB',  // Hujan Lebat
-            '95': '#1A5276',  // Hujan Petir
-            '97': '#154360',  // Hujan Petir Hebat 
+            '0': '#FCD34D',
+            '1': '#FDE68A',
+            '2': '#FDE68A',
+            '3': '#CBD5E1',
+            '4': '#475569',
+            '5': '#2C3E50',
+            '10': '#7F8C8D',
+            '45': '#7F8C8D',
+            '60': '#22C55E',
+            '61': '#22C55E',
+            '63': '#EAB308',
+            '65': '#F97316',
+            '95': '#EF4444',
+            '97': '#A855F7',
+            // --- TAMBAHAN KODE MALAM BMKG ---
+            '100': '#FCD34D', // Cerah Malam
+            '101': '#FDE68A', // Cerah Berawan Malam
+            '102': '#FDE68A', // Cerah Berawan Malam
+            '103': '#CBD5E1', // Berawan Malam
+            '104': '#475569'  // Berawan Tebal Malam
         };
-        return colors[String(code)] || '#FFFFFF';
+        return colors[cleanCode] || '#E2E8F0';
+    }
+
+    function getTemperatureColor(temp) {
+        if (!temp) return '#e2e8f0';
+        if (temp < 22) return '#3b82f6';
+        if (temp >= 22 && temp < 26) return '#60a5fa';
+        if (temp >= 26 && temp < 30) return '#facc15';
+        if (temp >= 30 && temp <= 34) return '#f97316';
+        return '#ef4444';
+    }
+
+    function getTemperatureCategory(temp) {
+        if (!temp) return 'Tanpa Data';
+        if (temp < 22) return 'Dingin';
+        if (temp >= 22 && temp < 26) return 'Sejuk';
+        if (temp >= 26 && temp < 30) return 'Normal';
+        if (temp >= 30 && temp <= 34) return 'Panas';
+        return 'Sangat Panas';
+    }
+
+    function getContrastColor(hexColor) {
+        hexColor = hexColor.replace(/^#/, '');
+        const r = parseInt(hexColor.substr(0, 2), 16);
+        const g = parseInt(hexColor.substr(2, 2), 16);
+        const b = parseInt(hexColor.substr(4, 2), 16);
+        const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        return (luminance > 160) ? '#1e293b' : '#FFFFFF';
     }
 
     function normalizeKey(str) {
@@ -116,38 +223,40 @@ document.addEventListener('DOMContentLoaded', function () {
                     ${kecamatan}
                 </h5>
                 <div class="badge-row">
-                    <span class="weather-badge" style="background:#e2e8f0;color:#64748b;text-shadow:none;">Data Tidak Tersedia</span>
+                    <span class="weather-badge" style="background:#e2e8f0; color:#64748b; text-shadow:none; border:none;">Data Tidak Tersedia</span>
                 </div>
             </div>
             `;
         }
 
-        const badgeBg = getWeatherColor(weather.weather_code);
         const formattedUpdate = formatWIBDate(weather.last_update);
         const translatedWind = translateWindDirection(weather.wind_dir);
         let forecastHtml = '';
 
         if (weather.forecasts && weather.forecasts.length > 0) {
             const dailyForecasts = weather.forecasts;
-
             forecastHtml = `
             <style>
-                .vertical-scroll-forecast::-webkit-scrollbar { width: 4px; }
-                .vertical-scroll-forecast::-webkit-scrollbar-track { background: #f8fafc; border-radius: 4px; }
-                .vertical-scroll-forecast::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-                .vertical-scroll-forecast::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+                /* Menyembunyikan scrollbar untuk IE, Edge dan Firefox */
+                .vertical-scroll-forecast {
+                    -ms-overflow-style: none;  
+                    scrollbar-width: none;  
+                }
+                /* Menyembunyikan scrollbar untuk Chrome, Safari dan Opera */
+                .vertical-scroll-forecast::-webkit-scrollbar { 
+                    display: none; 
+                }
             </style>
             <div class="forecast-section">
                 <div class="forecast-title" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                     <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     Prakiraan Cuaca
                 </div>
-                <div class="vertical-scroll-forecast" style="display: flex; flex-direction: column; max-height: 115px; overflow-y: auto; padding-right: 6px;">
+                <!-- Hapus padding-right: 6px karena scrollbar sudah hilang -->
+                <div class="vertical-scroll-forecast" style="display: flex; flex-direction: column; max-height: 115px; overflow-y: auto;">
                     ${dailyForecasts.map((f, index) => {
                 const isLast = index === dailyForecasts.length - 1;
                 const borderBottom = isLast ? 'none' : '1px dashed #e2e8f0';
-
-                // Menghilangkan parameter suhu di baris ini
                 return `
                         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #334155; padding: 6px 0; border-bottom: ${borderBottom}; width: 100%;">
                             <span style="color: #475569;">${formatWIBDate(f.datetime)}</span>
@@ -160,6 +269,32 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         }
 
+        let badgeBg, badgeText;
+        let grid1Icon, grid1Label, grid1Value;
+
+        if (currentVisMode === 'suhu') {
+            badgeBg = getTemperatureColor(weather.temp);
+            badgeText = `${weather.temp}°C (${getTemperatureCategory(weather.temp)})`;
+
+            const c = String(parseInt(weather.weather_code, 10));
+            if(c === '0' || c === '100') grid1Icon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F1C40F" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42 1.42"/></svg>`;
+            else if(c === '1' || c === '2' || c === '101' || c === '102') grid1Icon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F1C40F" stroke-width="2"><path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41M22 12h-2M17.66 17.66l1.41 1.41"/><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="#94a3b8"/></svg>`;
+            else grid1Icon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>`;
+            
+            grid1Label = 'Status Cuaca';
+            grid1Value = getStandardizedDesc(weather.weather_code, weather.weather_desc);
+        } else {
+            badgeBg = getWeatherColor(weather.weather_code);
+            badgeText = getStandardizedDesc(weather.weather_code, weather.weather_desc);
+
+            grid1Icon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path><path d="M12 7v5"></path></svg>`;
+            
+            grid1Label = 'Suhu';
+            grid1Value = `${weather.temp}°C`;
+        }
+
+        const contrastColor = getContrastColor(badgeBg);
+
         return `
         <div class="popup-header">
             <p class="item-label" style="margin-top:0; margin-bottom:5px; color:#64748b; font-size:11px; font-weight:600;">
@@ -170,16 +305,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${kecamatan}
             </h5>
             <div class="badge-row">
-                <span class="weather-badge" style="background:${badgeBg}; color:#ffffff;">${weather.weather_desc}</span>
+                <span class="weather-badge" style="background:${badgeBg}; color:${contrastColor}; text-shadow:none; border:none; border:1px solid rgba(0,0,0,0.1)">${badgeText}</span>
                 <span class="update-time">Update: ${formattedUpdate}</span>
             </div>
         </div>
         <div class="popup-grid">
             <div class="grid-item">
-                <div class="grid-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg></div>
+                <div class="grid-icon">${grid1Icon}</div>
                 <div class="grid-data">
-                    <span class="item-label">Suhu</span>
-                    <span class="item-value">${weather.temp}°C</span>
+                    <span class="item-label">${grid1Label}</span>
+                    <span class="item-value">${grid1Value}</span>
                 </div>
             </div>
             <div class="grid-item">
@@ -217,22 +352,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function styleLayer(layer, weather) {
         if (weather) {
+            let fillColor = currentVisMode === 'cuaca' ? getWeatherColor(weather.weather_code) : getTemperatureColor(weather.temp);
+
             layer.setStyle({
-                fillColor: getWeatherColor(weather.weather_code),
+                fillColor: fillColor,
                 weight: 1,
-                opacity: 1,
                 color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.65,
+                dashArray: '',
+                opacity: 1,
+                fillOpacity: 0.85,
             });
         } else {
             layer.setStyle({
-                fillColor: '#e2e8f0',
+                fillColor: '#E2E8F0',
                 weight: 1,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.3,
+                fillOpacity: 0.4,
             });
         }
     }
@@ -252,9 +389,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function onEachFeature(feature, layer) {
         const weather = findWeather(feature.properties.NAME_3);
-        const desc = weather ? weather.weather_desc : 'Tanpa Data';
+        const desc = weather ? getStandardizedDesc(weather.weather_code, weather.weather_desc) : 'Tanpa Data';
+        const tempCat = weather ? getTemperatureCategory(weather.temp) : 'Tanpa Data';
 
-        allPolygons.push({ layer: layer, desc: desc });
+        allPolygons.push({ layer: layer, desc: desc, tempCat: tempCat });
         styleLayer(layer, weather);
 
         layer.on({
@@ -264,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 currentlyHovered = e.target;
                 if (activeLayer !== e.target) {
-                    e.target.setStyle({ weight: 3, color: '#666', dashArray: '', fillOpacity: 0.85 });
+                    e.target.setStyle({ weight: 3, color: '#666', dashArray: '', fillOpacity: 0.95 });
                     e.target.bringToFront();
                 }
             },
@@ -279,8 +417,9 @@ document.addEventListener('DOMContentLoaded', function () {
             click: function (e) {
                 forceResetAllLayers();
                 activeLayer = e.target;
-                activeLayer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.85 });
+                activeLayer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.95 });
                 activeLayer.bringToFront();
+
                 if (marker) map.removeLayer(marker);
                 marker = L.marker(e.latlng, { icon: redIcon }).addTo(map);
 
@@ -311,20 +450,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function applyFilter() {
-        const checkboxes = document.querySelectorAll('.filter-checkbox:checked');
-        const activeFilters = Array.from(checkboxes).map(cb => cb.value);
+        let activeFilters = [];
+
+        if (currentVisMode === 'suhu') {
+            const checkboxes = document.querySelectorAll('.filter-checkbox-suhu:checked');
+            activeFilters = Array.from(checkboxes).map(cb => cb.value);
+        } else {
+            const checkboxes = document.querySelectorAll('.filter-checkbox-cuaca:checked');
+            activeFilters = Array.from(checkboxes).map(cb => cb.value);
+        }
 
         allPolygons.forEach(item => {
             let isVisible = true;
 
             if (item.desc !== 'Tanpa Data') {
-                let currentDesc = item.desc;
-                if (currentDesc === 'Kabut' || currentDesc === 'Asap') {
-                    currentDesc = 'Kabut/Asap';
-                }
-
-                if (!activeFilters.includes(currentDesc)) {
-                    isVisible = false;
+                if (currentVisMode === 'suhu') {
+                    if (!activeFilters.includes(item.tempCat)) {
+                        isVisible = false;
+                    }
+                } else {
+                    let currentDesc = item.desc;
+                    if (!activeFilters.includes(currentDesc)) {
+                        isVisible = false;
+                    }
                 }
             }
 
@@ -340,8 +488,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
-    filterCheckboxes.forEach(checkbox => {
+    const filterCheckboxesSuhu = document.querySelectorAll('.filter-checkbox-suhu');
+    const filterCheckboxesCuaca = document.querySelectorAll('.filter-checkbox-cuaca');
+
+    filterCheckboxesSuhu.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilter);
+    });
+    filterCheckboxesCuaca.forEach(checkbox => {
         checkbox.addEventListener('change', applyFilter);
     });
 
@@ -359,13 +512,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 try {
                     const geoResponse = await fetch(url);
                     if (!geoResponse.ok) {
-                        console.error(`Gagal memuat: ${url} (Status: ${geoResponse.status})`);
                         continue;
                     }
                     const geoData = await geoResponse.json();
                     L.geoJSON(geoData, { onEachFeature: onEachFeature }).addTo(map);
                 } catch (err) {
-                    console.error(`Error parsing di: ${url}`, err);
                 }
             }
 
