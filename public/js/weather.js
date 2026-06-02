@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentlyHovered = null;
     let marker = null;
     let allPolygons = [];
-    let currentVisMode = 'suhu';
+    let currentView = 'suhu';
 
-    const btnModeSuhu = document.getElementById('btn-mode-suhu');
-    const btnModeCuaca = document.getElementById('btn-mode-cuaca');
+    const btnSuhu = document.getElementById('btn-suhu');
+    const btnCuaca = document.getElementById('btn-cuaca');
     const filterSuhu = document.getElementById('filter-suhu');
     const filterCuaca = document.getElementById('filter-cuaca');
     const legendSuhu = document.getElementById('legend-suhu');
@@ -45,60 +45,110 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnLapisan = document.getElementById('btn-lapisan');
     const layerPopup = document.getElementById('layer-popup');
 
-    btnModeSuhu.addEventListener('click', () => {
-        setMode('suhu');
-        layerPopup.classList.add('hidden');
-    });
+    const btnToggleCuaca = document.getElementById('btn-toggle-filter-cuaca');
+    const panelCuaca = document.getElementById('panel-filter-cuaca');
+    const btnToggleSuhu = document.getElementById('btn-toggle-filter-suhu');
+    const panelSuhu = document.getElementById('panel-filter-suhu');
 
-    btnModeCuaca.addEventListener('click', () => {
-        setMode('cuaca');
-        layerPopup.classList.add('hidden');
-    });
+    if (btnSuhu) {
+        btnSuhu.addEventListener('click', () => {
+            setView('suhu');
+            if (layerPopup) layerPopup.classList.add('hidden');
+        });
+    }
 
-    btnLapisan.addEventListener('click', (e) => {
-        e.stopPropagation();
-        layerPopup.classList.toggle('hidden');
-    });
+    if (btnCuaca) {
+        btnCuaca.addEventListener('click', () => {
+            setView('cuaca');
+            if (layerPopup) layerPopup.classList.add('hidden');
+        });
+    }
+
+    if (btnLapisan && layerPopup) {
+        btnLapisan.addEventListener('click', (e) => {
+            e.stopPropagation();
+            layerPopup.classList.toggle('hidden');
+            if (layerPopup.style.display === 'none') {
+                layerPopup.style.display = '';
+            }
+
+            if (window.innerWidth < 768) {
+                if (panelCuaca) panelCuaca.classList.add('hidden');
+                if (panelSuhu) panelSuhu.classList.add('hidden');
+            }
+        });
+    }
+
+    if (btnToggleCuaca && panelCuaca) {
+        btnToggleCuaca.addEventListener('click', (e) => {
+            e.stopPropagation();
+            panelCuaca.classList.toggle('hidden');
+
+            if (layerPopup && !layerPopup.classList.contains('hidden')) {
+                layerPopup.classList.add('hidden');
+            }
+        });
+    }
+
+    if (btnToggleSuhu && panelSuhu) {
+        btnToggleSuhu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            panelSuhu.classList.toggle('hidden');
+
+            if (layerPopup && !layerPopup.classList.contains('hidden')) {
+                layerPopup.classList.add('hidden');
+            }
+        });
+    }
 
     document.addEventListener('click', (e) => {
-        if (!btnLapisan.contains(e.target) && !layerPopup.contains(e.target)) {
+        if (layerPopup && btnLapisan && !btnLapisan.contains(e.target) && !layerPopup.contains(e.target)) {
             layerPopup.classList.add('hidden');
+            layerPopup.style.display = ''; 
+        }
+
+        if (window.innerWidth < 768) {
+            if (filterCuaca && panelCuaca && !filterCuaca.contains(e.target)) {
+                panelCuaca.classList.add('hidden');
+            }
+            if (filterSuhu && panelSuhu && !filterSuhu.contains(e.target)) {
+                panelSuhu.classList.add('hidden');
+            }
         }
     });
 
-    function setMode(mode) {
-        currentVisMode = mode;
-        const isSuhu = mode === 'suhu';
+    function setView(type) {
+        currentView = type;
+        const isSuhu = type === 'suhu';
         
         const iconSuhu = document.getElementById('icon-suhu');
         const iconCuaca = document.getElementById('icon-cuaca');
         const bgSuhu = document.getElementById('bg-suhu');
         const bgCuaca = document.getElementById('bg-cuaca');
 
-        const activeContainer = 'w-[52px] h-[52px] rounded-lg border-2 border-[#1a73e8] transition-all relative overflow-hidden flex items-center justify-center text-[#1a73e8] shadow-sm bg-white';
-        const inactiveContainer = 'w-[52px] h-[52px] rounded-lg border-2 border-transparent transition-all relative overflow-hidden flex items-center justify-center text-slate-500 shadow-sm bg-slate-50 group-hover:bg-white';
+        const activeContainer = 'w-[26px] h-[26px] md:w-[52px] md:h-[52px] rounded-[6px] md:rounded-lg md:border-2 border border-[#1a73e8] transition-all relative overflow-hidden flex items-center justify-center text-[#1a73e8] shadow-sm bg-white shrink-0';
+        const inactiveContainer = 'w-[26px] h-[26px] md:w-[52px] md:h-[52px] rounded-[6px] md:rounded-lg md:border-2 border border-transparent transition-all relative overflow-hidden flex items-center justify-center text-slate-500 shadow-sm bg-slate-50 group-hover:bg-white shrink-0';
 
         if (isSuhu) {
-            iconSuhu.className = activeContainer;
-            iconCuaca.className = inactiveContainer;
+            if (iconSuhu) iconSuhu.className = activeContainer;
+            if (iconCuaca) iconCuaca.className = inactiveContainer;
             
             if (bgSuhu) bgSuhu.className = 'absolute inset-0 bg-gradient-to-br from-orange-100 via-white to-blue-100 opacity-100 transition-opacity duration-300';
             if (bgCuaca) bgCuaca.className = 'absolute inset-0 bg-gradient-to-br from-slate-200 via-white to-sky-100 opacity-30 group-hover:opacity-60 transition-opacity duration-300';
         } else {
-            iconCuaca.className = activeContainer;
-            iconSuhu.className = inactiveContainer;
+            if (iconCuaca) iconCuaca.className = activeContainer;
+            if (iconSuhu) iconSuhu.className = inactiveContainer;
             
             if (bgSuhu) bgSuhu.className = 'absolute inset-0 bg-gradient-to-br from-orange-100 via-white to-blue-100 opacity-30 group-hover:opacity-60 transition-opacity duration-300';
             if (bgCuaca) bgCuaca.className = 'absolute inset-0 bg-gradient-to-br from-slate-200 via-white to-sky-100 opacity-100 transition-opacity duration-300';
         }
 
-        filterSuhu.classList.toggle('hidden', !isSuhu);
-        legendSuhu.classList.toggle('hidden', !isSuhu);
-        filterCuaca.classList.toggle('hidden', isSuhu);
-        legendCuaca.classList.toggle('hidden', isSuhu);
+        if (filterSuhu) filterSuhu.classList.toggle('hidden', !isSuhu);
+        if (legendSuhu) legendSuhu.classList.toggle('hidden', !isSuhu);
+        if (filterCuaca) filterCuaca.classList.toggle('hidden', isSuhu);
+        if (legendCuaca) legendCuaca.classList.toggle('hidden', isSuhu);
 
         map.closePopup();
-
         forceResetAllLayers();
         applyFilter();
     }
@@ -236,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (weather.forecasts && weather.forecasts.length > 0) {
             const dailyForecasts = weather.forecasts;
-            const forecastTitle = currentVisMode === 'suhu' ? 'Prakiraan Suhu' : 'Prakiraan Cuaca';
+            const forecastTitle = currentView === 'suhu' ? 'Prakiraan Suhu' : 'Prakiraan Cuaca';
 
             forecastHtml = `
             <style>
@@ -259,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const borderBottom = isLast ? 'none' : '1px dashed #e2e8f0';
                 
                 let tempVal = f.temp !== undefined ? f.temp : (f.t !== undefined ? f.t : f.tempC);
-                const infoKanan = currentVisMode === 'suhu' ? getTemperatureCategory(tempVal) : f.weather_desc;
+                const infoKanan = currentView === 'suhu' ? getTemperatureCategory(tempVal) : f.weather_desc;
 
                 return `
                         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #334155; padding: 6px 0; border-bottom: ${borderBottom}; width: 100%;">
@@ -276,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let badgeBg, badgeText;
         let grid1Icon, grid1Label, grid1Value;
 
-        if (currentVisMode === 'suhu') {
+        if (currentView === 'suhu') {
             badgeBg = getTemperatureColor(weather.temp);
             badgeText = `${weather.temp}°C (${getTemperatureCategory(weather.temp)})`;
 
@@ -356,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function styleLayer(layer, weather) {
         if (weather) {
-            let fillColor = currentVisMode === 'cuaca' ? getWeatherColor(weather.weather_code) : getTemperatureColor(weather.temp);
+            let fillColor = currentView === 'cuaca' ? getWeatherColor(weather.weather_code) : getTemperatureColor(weather.temp);
 
             layer.setStyle({
                 fillColor: fillColor,
@@ -456,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function applyFilter() {
         let activeFilters = [];
 
-        if (currentVisMode === 'suhu') {
+        if (currentView === 'suhu') {
             const checkboxes = document.querySelectorAll('.filter-checkbox-suhu:checked');
             activeFilters = Array.from(checkboxes).map(cb => cb.value);
         } else {
@@ -468,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let isVisible = true;
 
             if (item.desc !== 'Tanpa Data') {
-                if (currentVisMode === 'suhu') {
+                if (currentView === 'suhu') {
                     if (!activeFilters.includes(item.tempCat)) {
                         isVisible = false;
                     }
