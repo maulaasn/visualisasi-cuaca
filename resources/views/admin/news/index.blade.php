@@ -1,7 +1,7 @@
 @extends('admin.layouts.sidebar')
 
 @section('content')
-    <div class="p-8">
+    <div class="p-7.5">
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-xl font-bold text-slate-800">Berita Terbaru</h1>

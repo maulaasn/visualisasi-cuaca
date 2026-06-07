@@ -1,9 +1,9 @@
 @extends('admin.layouts.sidebar')
 
 @section('content')
-<div class="warning-container p-6 md:p-[30px_40px] m-0 w-full box-border">
+<div class="warning-container p-6 md:p-[30px] m-0 w-full box-border">
     <div class="warning-header mb-6">
-        <h1 class="page-title text-xl font-bold text-slate-800 m-0 mb-2">Informasi Peringatan Dini</h1>
+        <h1 class="page-title text-xl font-bold text-slate-800 m-0 mb-1.5">Informasi Peringatan Dini</h1>
         <p class="last-update text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
     </div>
 

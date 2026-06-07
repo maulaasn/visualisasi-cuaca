@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentlyHovered = null;
     let marker = null;
     let allPolygons = [];
-    let currentView = 'suhu';
+    let currentView = 'cuaca';
 
     const btnSuhu = document.getElementById('btn-suhu');
     const btnCuaca = document.getElementById('btn-cuaca');
@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const bgSuhu = document.getElementById('bg-suhu');
         const bgCuaca = document.getElementById('bg-cuaca');
 
-        const activeContainer = 'w-[26px] h-[26px] md:w-[52px] md:h-[52px] rounded-[6px] md:rounded-lg md:border-2 border border-[#1a73e8] transition-all relative overflow-hidden flex items-center justify-center text-[#1a73e8] shadow-sm bg-white shrink-0';
-        const inactiveContainer = 'w-[26px] h-[26px] md:w-[52px] md:h-[52px] rounded-[6px] md:rounded-lg md:border-2 border border-transparent transition-all relative overflow-hidden flex items-center justify-center text-slate-500 shadow-sm bg-slate-50 group-hover:bg-white shrink-0';
+        const activeContainer = 'w-[26px] h-[26px] md:w-[38px] md:h-[38px] rounded-[6px] md:rounded-md md:border-2 border border-[#1a73e8] transition-all relative overflow-hidden flex items-center justify-center text-[#1a73e8] shadow-sm bg-white shrink-0';
+        const inactiveContainer = 'w-[26px] h-[26px] md:w-[38px] md:h-[38px] rounded-[6px] md:rounded-md md:border-2 border border-transparent transition-all relative overflow-hidden flex items-center justify-center text-slate-500 shadow-sm bg-slate-50 group-hover:bg-white shrink-0';
 
         if (isSuhu) {
             if (iconSuhu) iconSuhu.className = activeContainer;
@@ -204,11 +204,11 @@ document.addEventListener('DOMContentLoaded', function () {
             '65': '#F97316',
             '95': '#EF4444',
             '97': '#A855F7',
-            '100': '#FCD34D', // Cerah Malam
-            '101': '#FDE68A', // Cerah Berawan Malam
-            '102': '#FDE68A', // Cerah Berawan Malam
-            '103': '#CBD5E1', // Berawan Malam
-            '104': '#475569'  // Berawan Tebal Malam
+            '100': '#FCD34D', 
+            '101': '#FDE68A', 
+            '102': '#FDE68A', 
+            '103': '#CBD5E1', 
+            '104': '#475569'  
         };
         return colors[cleanCode] || '#E2E8F0';
     }
@@ -551,6 +551,8 @@ document.addEventListener('DOMContentLoaded', function () {
     filterCheckboxesCuaca.forEach(checkbox => {
         checkbox.addEventListener('change', applyFilter);
     });
+
+    setView('cuaca');
 
     async function initMap() {
         try {

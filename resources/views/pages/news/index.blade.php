@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="bg-gray-50/50 w-full min-h-[80vh] pb-20 pt-6 md:pt-10">
-    <div class="max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="max-w-[1600px] mx-auto px-5 md:px-[40px]">
         
         <div class="text-center mb-8 sm:mb-10">
             <h1 class="text-base sm:text-[20px] font-extrabold text-slate-900 mb-0">Berita Terbaru</h1>
-            <p class="text-slate-600 text-xs sm:text-sm mt-1 mb-5 sm:mb-6">Perkiraan cuaca serta update terbaru kondisi cuaca</p>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1 mb-5 sm:mb-6">Informasi prakiraan cuaca dan update kondisi terkini</p>
 
             <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
                 <a href="{{ route('news.index', ['category' => 'Semua']) }}" 

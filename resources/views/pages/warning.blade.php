@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="warning-container p-6 md:p-[30px_40px] m-0 w-full box-border">
-    <div class="warning-header mb-6">
-        <h1 class="page-title text-base md:text-[20px] font-bold text-slate-800 m-0 mb-2">Informasi Peringatan Dini</h1>
-        <p class="last-update text-xs md:text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
+<div class="warning-container p-5 md:p-[30px_40px] m-0 w-full box-border">
+    <div class="warning-header mb-4 md:mb-6">
+        <h1 class="page-title text-[16px] md:text-[20px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi Peringatan Dini</h1>
+        <p class="last-update text-[11px] md:text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
     </div>
 
     @if($warning)
@@ -22,8 +22,8 @@
     @endphp
 
     <div class="warning-card bg-orange-50 border border-orange-200 rounded-lg overflow-hidden w-full h-auto flex flex-col">
-        <div class="warning-card-header p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-start gap-4 md:gap-8">     
-            <div class="warning-title-wrapper flex gap-4 items-start flex-1">
+        <div class="warning-card-header p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-start gap-3 md:gap-8">     
+            <div class="warning-title-wrapper flex gap-3 md:gap-4 items-start flex-1">
                 
                 @if($iconType === 'petir')
                 <svg class="shrink-0 w-6 h-7 md:w-8 md:h-8 md:mt-1.5" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -56,22 +56,22 @@
                     </p>
 
                     <h2 class="text-sm md:text-base font-bold text-slate-800 m-0 mb-1.5 md:mb-3">{{ $warning['title'] }}</h2>
-                    <p class="warning-summary text-justify text-xs md:text-sm text-slate-600 m-0 mb-2.5 md:mb-5 leading-relaxed">
+                    <p class="warning-summary text-left md:text-justify text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
                         {{ $warning['description'] }}
                     </p>
-                    <div class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
+                    <div class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
                         Berlaku: {{ $warning['effective_wib'] }} - {{ $warning['expires_wib'] }}
                     </div>
                 </div>
             </div>
 
-            <a href="{{ route('warning.detail') }}" class="bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-2 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline">
+            <a href="{{ route('warning.detail') }}" class="bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-1 md:py-2 mt-1 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-full md:w-auto">
                 Lihat Peta Persebaran &rarr;
             </a>
         </div>
     </div>
     @else
-    <div class="empty-state-card bg-emerald-50 border border-emerald-200 rounded-lg p-[40px_20px] md:p-[60px_40px] text-center text-emerald-800 w-full box-border">
+    <div class="empty-state-card bg-emerald-50 border border-emerald-200 rounded-lg p-[35px_25px] md:p-[60px_40px] text-center text-emerald-800 w-full box-border">
         <div class="empty-state-icon flex justify-center mb-4">
             <svg class="w-10 h-10 md:w-12 md:h-12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
