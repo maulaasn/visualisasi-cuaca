@@ -108,7 +108,7 @@
 
         <div style="height: 20px;" class="w-full block md:hidden"></div>
 
-        <div style="height: 40px;" class="w-full hidden md:block"></div>
+        <div style="height: 30px;" class="w-full hidden md:block"></div>
 
     </div>
 </div>
