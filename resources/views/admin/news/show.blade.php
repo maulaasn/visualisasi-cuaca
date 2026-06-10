@@ -21,7 +21,7 @@
                 {{ $news->title }}
             </h1>
 
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-4 border-b border-slate-200 pb-4 mb-6">
                 <div class="flex items-center gap-1.5 text-slate-500 text-[12px] md:text-sm font-normal">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.5">
@@ -44,15 +44,17 @@
                 </div>
             </div>
 
-            @if($news->image)
-                <img src="{{ asset('storage/' . $news->image) }}" alt="Cover Berita"
-                    class="w-full max-w-sm h-64 md:h-60 object-cover rounded-xl mb-2 shadow-sm">
-            @else
-                <div
-                    class="w-full max-w-sm h-64 md:h-60 object-cover rounded-xl mb-2 shadow-sm bg-slate-100 flex items-center justify-center border-slate-200">
-                    <span class="text-slate-400 font-medium">Tidak ada foto utama</span>
-                </div>
-            @endif
+            <div class="mb-6">
+                @if($news->image)
+                    <img src="{{ asset('storage/' . $news->image) }}" alt="Cover Berita"
+                        class="w-full max-w-sm h-64 md:h-60 object-cover rounded-xl shadow-sm">
+                @else
+                    <div
+                        class="w-full max-w-sm h-64 md:h-60 object-cover rounded-xl shadow-sm bg-slate-100 flex items-center justify-center border border-slate-200">
+                        <span class="text-slate-400 font-medium text-sm">Tidak ada foto utama</span>
+                    </div>
+                @endif
+            </div>
 
             <div class="text-slate-700 leading-relaxed space-y-4 text-[15px] whitespace-pre-line max-w-full">
                 {{ $news->content }}
