@@ -1,8 +1,9 @@
 @extends('admin.layouts.sidebar')
 
 @section('content')
-    <div class="p-8 max-w-full mx-auto">
-        <div class="flex items-center gap-4 mb-8">
+    <div class="px-8 pb-8 max-w-full mx-auto">
+        
+        <div class="sticky top-0 z-40 bg-white pt-8 pb-4 mb-8 flex items-center gap-4 border-b border-slate-200">
             <a href="{{ route('admin.news.index') }}" class="text-slate-500 hover:text-slate-800 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2.5">
@@ -44,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="mb-6">
+            <div class="mb-4">
                 @if($news->image)
                     <img src="{{ asset('storage/' . $news->image) }}" alt="Cover Berita"
                         class="w-full max-w-sm h-64 md:h-60 object-cover rounded-xl shadow-sm">
