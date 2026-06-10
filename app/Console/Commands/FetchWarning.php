@@ -28,8 +28,9 @@ class FetchWarning extends Command
                 $message = "⚠️ <b>PERINGATAN DINI CUACA EKSTREM</b> ⚠️\n\n";
                 $message .= "<b>" . $warning['event'] . "</b>\n";
                 $message .= "<b>" . $warning['title'] . "</b>\n\n";
-                $message .= "<b>Berlaku:</b> " . $waktuMulai . " - " . $waktuSelesai . "\n\n";
-                $message .= "<b>Detail:</b>\n" . $description;
+                $message .= "<b>Masa Berlaku:</b> " . $waktuMulai . " - " . $waktuSelesai . "\n\n";
+                $message .= $description . "\n\n";
+                $message .= "Sumber: Prakirawan BMKG - Jawa Timur";
 
                 $mapUrl = route('warning.detail');
                 

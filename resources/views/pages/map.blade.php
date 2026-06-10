@@ -5,7 +5,7 @@
 @endpush 
 
 @section('content')
-    <div class="flex flex-col h-[calc(100vh-70px)] bg-slate-50">
+    <div class="flex flex-col h-[calc(100dvh-70px)] bg-slate-50">
         
         <div id="telegram-banner-wrapper" class="px-5 pt-4 -mb-1 md:mb-0 md:px-[40px] md:pt-[24px] flex-shrink-0">
             <div class="bg-[#f0f9ff] border border-[#bae6fd] rounded-xl px-4 py-3 shadow-sm relative z-20">
@@ -107,7 +107,7 @@
 
                 <div id="panel-filter-cuaca" class="hidden md:block absolute right-[48px] md:right-auto md:static top-0 md:top-auto bg-white/95 p-3 md:p-[15px] rounded-lg shadow-[0_4px_15px_rgba(0,0,0,0.15)] md:min-w-[160px] border border-slate-100 md:border-none origin-top-right md:origin-bottom-left z-10 w-max max-w-[calc(100vw-80px)] md:w-auto md:max-w-none">
                     <div class="filter-header text-[11px] md:text-[12px] font-bold text-slate-800 mb-2 md:mb-2.5 pb-1 md:pb-2 border-b border-slate-200">Filter Cuaca</div>
-                    <div class="filter-list flex flex-col gap-2 max-h-[40vh] md:max-h-none md:overflow-visible overflow-y-auto pr-1">
+                    <div class="filter-list flex flex-col gap-2 max-h-[40dvh] md:max-h-none md:overflow-visible overflow-y-auto pr-1">
                         <label class="filter-item flex items-center gap-2 text-[11px] text-slate-700 cursor-pointer select-none whitespace-nowrap">
                             <input type="checkbox" class="filter-checkbox-cuaca accent-blue-600 w-3.5 h-3.5 cursor-pointer m-0 flex-shrink-0" value="Cerah" checked> 
                             <span class="w-[14px] h-[14px] flex items-center justify-center md:hidden flex-shrink-0"><svg viewBox="0 0 24 24" fill="none" stroke="#F1C40F" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42 1.42"/></svg></span>
@@ -177,7 +177,7 @@
 
                 <div id="panel-filter-suhu" class="hidden md:block absolute right-[48px] md:right-auto md:static top-0 md:top-auto bg-white/95 p-3 md:p-[15px] rounded-lg shadow-[0_4px_15px_rgba(0,0,0,0.15)] md:min-w-[160px] border border-slate-100 md:border-none origin-top-right md:origin-bottom-left z-10 w-max max-w-[calc(100vw-80px)] md:w-auto md:max-w-none">
                     <div class="filter-header text-[11px] md:text-[12px] font-bold text-slate-800 mb-2 md:mb-2.5 pb-1 md:pb-2 border-b border-slate-200">Filter Suhu</div>
-                    <div class="filter-list flex flex-col gap-2 max-h-[40vh] md:max-h-[250px] overflow-y-auto pr-1">
+                    <div class="filter-list flex flex-col gap-2 max-h-[40dvh] md:max-h-[250px] overflow-y-auto pr-1">
                         <label class="flex items-center gap-2 text-[11px] text-slate-700 cursor-pointer whitespace-nowrap">
                             <input type="checkbox" class="filter-checkbox-suhu accent-blue-600 w-3.5 h-3.5 m-0 flex-shrink-0" value="Sangat Panas" checked> 
                             <span class="w-[14px] h-[14px] rounded-[3px] border border-black/10 md:hidden flex-shrink-0" style="background: #ef4444;"></span>
