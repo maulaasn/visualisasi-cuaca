@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="bg-gray-50/50 w-full min-h-[80vh] pb-20 pt-6 md:pt-10">
+<div class="bg-gray-50/50 w-full min-h-[80vh] pb-32 md:pb-20 pt-6 md:pt-10">
     <div class="max-w-[1600px] mx-auto px-5 md:px-[40px]">
         
         <div class="text-center mb-8 sm:mb-10">

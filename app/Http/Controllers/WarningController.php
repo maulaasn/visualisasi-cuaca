@@ -16,7 +16,10 @@ class WarningController extends Controller
             $warning = $service->fetchAndCacheJatimWarning();
         }
 
-        $checkedAt = Cache::get('bmkg.warning.jatim.checked_at', date('d F Y, H:i') . ' WIB');
+        $rawCheckedAt = Cache::get('bmkg.warning.jatim.checked_at', now());
+        
+        $checkedAt = \Carbon\Carbon::parse(str_replace(' WIB', '', $rawCheckedAt))
+                        ->translatedFormat('d F Y, H:i') . ' WIB';
 
         return view('pages.warning', compact('warning', 'checkedAt'));
     }
@@ -29,7 +32,10 @@ class WarningController extends Controller
             $warning = $service->fetchAndCacheJatimWarning();
         }
 
-        $checkedAt = Cache::get('bmkg.warning.jatim.checked_at', date('d F Y, H:i') . ' WIB');
+        $rawCheckedAt = Cache::get('bmkg.warning.jatim.checked_at', now());
+
+        $checkedAt = \Carbon\Carbon::parse(str_replace(' WIB', '', $rawCheckedAt))
+                        ->translatedFormat('d F Y, H:i') . ' WIB';
 
         return view('pages.detail-warning', compact('warning', 'checkedAt'));
     }
