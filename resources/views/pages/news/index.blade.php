@@ -1,6 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
+<style>
+    @media (min-width: 1024px) {
+        .desktop-gap-30 {
+            gap: 30px !important;
+        }
+    }
+</style>
+
 <div class="bg-gray-50/50 w-full min-h-[80vh] pb-20 pt-6 md:pt-10">
     <div class="max-w-[1600px] mx-auto px-5 md:px-[40px]">
         
@@ -31,7 +39,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 xl:gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 desktop-gap-30 items-start">
             
             @forelse($news as $item)
             <div class="bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow duration-300">
@@ -99,6 +107,8 @@
         </div>
 
         <div style="height: 20px;" class="w-full block md:hidden"></div>
+
+        <div style="height: 20px;" class="w-full hidden md:block"></div>
 
     </div>
 </div>
