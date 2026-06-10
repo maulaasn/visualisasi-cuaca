@@ -64,7 +64,7 @@
                         </span>
                     </div>
                     
-                    <h2 class="text-[14xpx] sm:text-[16px] font-bold text-slate-900 mb-2 sm:mb-3 leading-snug line-clamp-2">
+                    <h2 class="text-[14px] sm:text-[16px] font-bold text-slate-900 mb-2 sm:mb-3 leading-snug line-clamp-2">
                         <a href="{{ route('news.show', $item->slug) }}" class="hover:text-blue-800 transition-colors">
                             {{ $item->title }}
                         </a>
