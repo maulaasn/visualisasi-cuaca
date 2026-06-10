@@ -98,7 +98,7 @@
 
         </div>
 
-        <div style="height: 100px;" class="w-full block md:hidden"></div>
+        <div style="height: 40px;" class="w-full block md:hidden"></div>
 
     </div>
 </div>
