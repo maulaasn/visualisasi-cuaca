@@ -2,55 +2,55 @@
 
 @section('content')
 <div class="bg-gray-50/50 w-full min-h-[80vh] pb-20 pt-6 md:pt-10">
-    <div class="max-w-[1600px] mx-auto px-4 md:px-[40px]">
+    <div class="max-w-[1600px] mx-auto px-5 md:px-[40px]">
         
-        <div class="text-center mb-6 sm:mb-10">
+        <div class="text-center mb-8 sm:mb-10">
             <h1 class="text-base sm:text-[20px] font-extrabold text-slate-900 mb-0">Berita Terbaru</h1>
-            <p class="text-slate-600 text-[11px] sm:text-sm mt-1 mb-4 sm:mb-6">Informasi prakiraan cuaca dan update kondisi terkini</p>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1 mb-5 sm:mb-6">Informasi prakiraan cuaca dan update kondisi terkini</p>
 
-            <div class="flex flex-wrap justify-center gap-1.5 sm:gap-3">
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
                 <a href="{{ route('news.index', ['category' => 'Semua']) }}" 
-                   class="px-3 sm:px-4 py-1.5 text-[11px] sm:text-[13px] font-semibold rounded-md border transition-colors {{ $category == 'Semua' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
+                   class="px-3 sm:px-4 py-1.5 text-xs sm:text-[13px] font-semibold rounded-md border transition-colors {{ $category == 'Semua' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
                     Semua
                 </a>
                 
                 <a href="{{ route('news.index', ['category' => 'Berita Utama']) }}" 
-                   class="px-3 sm:px-4 py-1.5 text-[11px] sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Berita Utama' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
+                   class="px-3 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Berita Utama' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
                     Berita Utama
                 </a>
                 
                 <a href="{{ route('news.index', ['category' => 'Prakiraan Cuaca']) }}" 
-                   class="px-3 sm:px-4 py-1.5 text-[11px] sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Prakiraan Cuaca' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
+                   class="px-3 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Prakiraan Cuaca' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
                     Prakiraan Cuaca
                 </a>
                 
                 <a href="{{ route('news.index', ['category' => 'Peringatan Dini']) }}" 
-                   class="px-3 sm:px-4 py-1.5 text-[11px] sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Peringatan Dini' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
+                   class="px-3 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium rounded-md border transition-colors {{ $category == 'Peringatan Dini' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50' }}">
                     Peringatan Dini
                 </a>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 xl:gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 xl:gap-8 items-start">
             
             @forelse($news as $item)
-            <div class="bg-white border border-slate-200 rounded-lg sm:rounded-xl overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow duration-300">
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow duration-300">
                 
-                <div class="w-full sm:w-[40%] shrink-0 h-36 sm:h-auto">
+                <div class="w-full sm:w-[40%] shrink-0 h-40 sm:h-auto">
                     @if($item->image)
                         <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
                     @else
-                        <div class="w-full h-full bg-slate-100 flex items-center justify-center border-b sm:border-b-0 sm:border-r border-slate-200">
+                        <div class="w-full h-full bg-slate-100 flex items-center justify-center border-r border-slate-100">
                             <span class="text-slate-400 text-xs">Tidak ada gambar</span>
                         </div>
                     @endif
                 </div>
 
-                <div class="p-3.5 sm:p-6 md:p-8 flex flex-col flex-1 justify-center">
+                <div class="p-4 sm:p-6 md:p-8 flex flex-col flex-1 justify-center">
                     
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2.5">
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-2 sm:mb-2.5">
                         <span @class([
-                            'px-2 py-0.5 text-[10px] sm:text-[11px] font-bold rounded border',
+                            'px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold rounded border',
                             'bg-orange-50 border-orange-200 text-orange-600' => $item->urgency_level == 'Peringatan Dini',
                             'bg-blue-50 border-blue-200 text-blue-600'     => $item->urgency_level == 'Prakiraan Cuaca',
                             'bg-purple-50 border-purple-200 text-purple-600' => $item->urgency_level == 'Berita Utama',
@@ -64,13 +64,13 @@
                         </span>
                     </div>
                     
-                    <h2 class="text-[14px] sm:text-[16px] font-bold text-slate-900 mb-1.5 sm:mb-3 leading-snug line-clamp-2">
+                    <h2 class="text-[14xpx] sm:text-[16px] font-bold text-slate-900 mb-2 sm:mb-3 leading-snug line-clamp-2">
                         <a href="{{ route('news.show', $item->slug) }}" class="hover:text-blue-800 transition-colors">
                             {{ $item->title }}
                         </a>
                     </h2>
                     
-                    <p class="text-[12px] sm:text-[13px] text-slate-500 mb-3 sm:mb-5 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+                    <p class="text-[12px] sm:text-[13px] text-slate-500 mb-4 sm:mb-5 line-clamp-2 sm:line-clamp-3 leading-relaxed">
                         {{ Str::limit(strip_tags($item->content), 130) }}
                     </p>
 
