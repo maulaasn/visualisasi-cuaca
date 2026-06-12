@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <div class="warning-map-container p-4 md:p-[30px_40px] m-0 w-full box-border">
+    <div class="warning-map-container p-5 md:p-[30px_40px] m-0 w-full box-border">
         
         <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
             <a href="{{ route('warning.index') }}"
@@ -14,8 +14,8 @@
             </a>
             
             <div class="order-2 md:order-1">
-                <h1 class="page-title text-[18px] md:text-[20px] font-bold text-slate-800 m-0 mb-1">Peta Persebaran Cuaca Ekstrem</h1>
-                <p class="last-update text-[11px] md:text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
+                <h1 class="page-title text-base md:text-[20px] font-bold text-slate-800 m-0 mb-1">Peta Persebaran Cuaca Ekstrem</h1>
+                <p class="last-update text-xs md:text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
             </div>
         </div>
 

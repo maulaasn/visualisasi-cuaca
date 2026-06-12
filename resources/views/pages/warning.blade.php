@@ -3,7 +3,7 @@
 @section('content')
 <div class="warning-container p-5 md:p-[30px_40px] m-0 w-full box-border">
     <div class="warning-header mb-4 md:mb-6">
-        <h1 class="page-title text-[16px] md:text-[20px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi Peringatan Dini</h1>
+        <h1 class="page-title text-base md:text-[20px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi Peringatan Dini</h1>
         <p class="last-update text-xs md:text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
     </div>
 
@@ -55,11 +55,11 @@
                         {{ strtolower($warning['event']) }}
                     </p>
 
-                    <h2 class="text-sm md:text-base font-bold text-slate-800 m-0 mb-1.5 md:mb-3">{{ $warning['title'] }}</h2>
+                    <h2 class="text-sm md:text-base font-bold text-slate-800 m-0 mb-2 md:mb-3">{{ $warning['title'] }}</h2>
                     <p class="warning-summary text-left md:text-justify text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
                         {{ $warning['description'] }}
                     </p>
-                    <div class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
+                    <div class="warning-time-badge inline-block bg-orange-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
                         Berlaku: {{ $warning['effective_wib'] }} - {{ $warning['expires_wib'] }}
                     </div>
                 </div>
