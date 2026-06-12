@@ -13,8 +13,12 @@
                 <p class="last-update text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
             </div>
             
-            <a href="{{ route('admin.warning') }}" class="text-sm text-slate-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1">
-                &larr; Kembali ke Peringatan Dini
+            <a href="{{ route('admin.warning') }}"
+                class="order-1 md:order-2 text-[12px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1.5 self-start">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 md:w-4 md:h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                <span>Kembali ke Peringatan Dini</span>
             </a>
         </div>
 

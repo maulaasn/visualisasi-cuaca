@@ -9,7 +9,7 @@
         
         <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
             <a href="{{ route('warning.index') }}"
-                class="order-1 md:order-2 text-[13px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1.5 self-start">
+                class="order-1 md:order-2 text-[12px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1.5 self-start">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 md:w-4 md:h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
