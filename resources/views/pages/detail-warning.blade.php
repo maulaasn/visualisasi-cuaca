@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col h-[calc(100dvh-180px)] md:h-[70vh] min-h-[400px] md:min-h-[500px]">
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col h-[65vh] md:h-[70vh] min-h-[400px] md:min-h-[500px]">
 
             <div id="full-map" class="w-full flex-grow rounded-lg border border-orange-200 z-10 bg-gray-100"></div>
 
