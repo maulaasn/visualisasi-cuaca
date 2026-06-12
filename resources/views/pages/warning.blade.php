@@ -59,7 +59,7 @@
                     <p class="warning-summary text-left md:text-justify text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
                         {{ $warning['description'] }}
                     </p>
-                    <div class="warning-time-badge inline-block bg-orange-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
+                    <div class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
                         Berlaku: {{ $warning['effective_wib'] }} - {{ $warning['expires_wib'] }}
                     </div>
                 </div>
