@@ -9,12 +9,7 @@
         
         <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
             <a href="{{ route('warning.index') }}"
-                class="inline-flex items-center gap-1.5 text-[13px] md:text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors group">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
+                class="order-1 md:order-2 text-[13px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1 self-start">
                 &larr; Kembali ke Peringatan Dini
             </a>
             
