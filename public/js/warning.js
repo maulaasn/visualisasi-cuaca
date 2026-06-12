@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (hasBounds) {
                 map.fitBounds(bounds, { padding: [30, 30] });
             }
+
+            setTimeout(function () {
+                map.invalidateSize();
+            }, 300);
         }
     }
 });
