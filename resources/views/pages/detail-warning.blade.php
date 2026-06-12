@@ -5,11 +5,9 @@
 @endpush
 
 @section('content')
-    <!-- 1. Gunakan h-[calc(100vh-80px)] agar tingginya pasti, bukan min-h -->
-    <div class="warning-map-container p-5 md:p-[30px_40px] m-0 w-full box-border flex flex-col h-[calc(100vh-80px)] md:h-auto md:block">
+    <div class="warning-map-container p-5 md:p-[30px_40px] m-0 w-full box-border">
         
-        <!-- 2. Tambahkan flex-none agar bagian judul tidak ikut melar/menciut -->
-        <div class="flex-none mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
+        <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
             <a href="{{ route('warning.index') }}"
                 class="order-1 md:order-2 text-[13px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1 self-start">
                 &larr; Kembali ke Peringatan Dini
@@ -21,14 +19,11 @@
             </div>
         </div>
 
-        <!-- 3. flex-1 di sini untuk mengisi sisa layar, min-h-0 MENCEGAH map kebablasan ke bawah -->
-        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col flex-1 min-h-0 md:flex-none md:h-[70vh] md:min-h-[500px]">
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col h-[calc(100dvh-180px)] md:h-[70vh] min-h-[400px] md:min-h-[500px]">
 
-            <!-- 4. flex-1 pada map agar mengisi penuh kotak oren -->
-            <div id="full-map" class="w-full flex-1 min-h-0 rounded-lg border border-orange-200 z-10 bg-gray-100"></div>
+            <div id="full-map" class="w-full flex-grow rounded-lg border border-orange-200 z-10 bg-gray-100"></div>
 
-            <!-- 5. flex-none pada footer agar tidak melar -->
-            <div class="flex-none warning-footer mt-3 md:mt-4 pt-3 md:pt-4 border-t border-dashed border-orange-200 text-center md:text-right text-[10px] md:text-xs text-slate-400">
+            <div class="warning-footer mt-3 md:mt-4 pt-3 md:pt-4 border-t border-dashed border-orange-200 text-center md:text-right text-[10px] md:text-xs text-slate-400">
                 Sumber: Prakirawan BMKG - Jawa Timur
             </div>
         </div>
