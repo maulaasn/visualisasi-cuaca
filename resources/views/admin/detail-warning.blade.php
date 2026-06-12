@@ -10,7 +10,7 @@
         <div class="mb-2 flex items-center justify-between shrink-0">
             <div>
                 <h1 class="page-title text-xl font-bold text-slate-800 m-0 mb-1">Peta Persebaran Cuaca Ekstrem</h1>
-                <p class="last-update text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
+                <p class="last-update text-sm text-slate-500 m-0">Pembaruan terakhir: {{ \Carbon\Carbon::parse(str_replace(' WIB', '', $checkedAt))->translatedFormat('d F Y, H:i') }} WIB</p>
             </div>
             
             <a href="{{ route('admin.warning') }}"

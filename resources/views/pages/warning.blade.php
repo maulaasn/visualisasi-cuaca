@@ -78,7 +78,7 @@
                     </div>
 
                     <a href="{{ route('warning.detail') }}"
-                        class="bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[12px] md:text-sm py-1 md:py-2 mt-1 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-full md:w-auto flex items-center justify-start md:justify-end gap-1.5">
+                        class="bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-1 md:py-2 mt-1 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-full md:w-auto flex items-center justify-start md:justify-end gap-1.5">
                         <span>Lihat Peta Persebaran</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                             stroke="currentColor" class="w-3.5 h-3.5 md:w-4 md:h-4">
