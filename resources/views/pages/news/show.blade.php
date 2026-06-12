@@ -6,13 +6,13 @@
 
             <div class="mb-4">
                 <a href="{{ route('news.index') }}"
-                    class="inline-flex items-center gap-1.5 text-[12px] md:text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors group no-underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                        stroke="currentColor"
-                        class="w-3.5 h-3.5 md:w-4 md:h-4 transform group-hover:-translate-x-1 transition-transform">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    class="inline-flex items-center gap-1.5 text-[12px] md:text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors group">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
-                    <span>Kembali ke halaman awal</span>
+                    Kembali ke halaman awal
                 </a>
             </div>
 
