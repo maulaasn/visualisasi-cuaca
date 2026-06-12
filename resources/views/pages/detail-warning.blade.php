@@ -15,7 +15,7 @@
             
             <div class="order-2 md:order-1">
                 <h1 class="page-title text-base md:text-[20px] font-bold text-slate-800 m-0 mb-1">Peta Persebaran Cuaca Ekstrem</h1>
-                <p class="last-update text-xs md:text-sm text-slate-500 m-0">Pembaruan terakhir: {{ $checkedAt }}</p>
+                <p class="last-update text-xs md:text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
             </div>
         </div>
 
