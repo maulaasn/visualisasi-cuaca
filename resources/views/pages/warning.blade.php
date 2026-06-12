@@ -3,7 +3,7 @@
 @section('content')
 <div class="warning-container p-5 md:p-[30px_40px] m-0 w-full box-border">
     <div class="warning-header mb-4 md:mb-6">
-        <h1 class="page-title text-base md:text-[18px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi Peringatan Dini</h1>
+        <h1 class="page-title text-text-[15px] md:text-[20px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi Peringatan Dini</h1>
         <p class="last-update text-xs md:text-sm text-slate-500 m-0 mb-5">Pembaruan terakhir: {{ $checkedAt }}</p>
     </div>
 
