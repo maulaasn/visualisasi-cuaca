@@ -56,7 +56,7 @@
                     </p>
 
                     <h2 class="text-[13px] md:text-base font-bold text-slate-800 m-0 mb-2 md:mb-3">{{ $warning['title'] }}</h2>
-                    <p class="warning-summary text-justify pr-5 md:pr-0 text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
+                    <p class="warning-summary text-justify pr-6 md:pr-0 text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
                         {{ $warning['description'] }}
                     </p>
                     <div class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
