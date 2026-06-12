@@ -10,7 +10,7 @@
         <div class="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0">
             <a href="{{ route('warning.index') }}"
                 class="order-1 md:order-2 text-[13px] md:text-sm text-orange-600 hover:text-orange-600 font-medium transition-colors no-underline flex items-center gap-1 self-start">
-                &larr; Kembali ke Peringatan Dini
+                &rarr; Kembali ke Peringatan Dini
             </a>
             
             <div class="order-2 md:order-1">
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col h-[65vh] md:h-[70vh] min-h-[500px] md:min-h-[500px]">
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 md:p-6 w-full flex flex-col md:h-[70vh] min-h-[400px] md:min-h-[500px]">
 
             <div id="full-map" class="w-full flex-grow rounded-lg border border-orange-200 z-10 bg-gray-100"></div>
 
