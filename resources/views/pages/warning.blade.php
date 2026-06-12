@@ -71,14 +71,14 @@
                                 {{ $warning['description'] }}
                             </p>
                             <div
-                                class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-2 md:mb-4">
+                                class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-0 md:mb-4">
                                 Berlaku: {{ $warning['effective_wib'] }} - {{ $warning['expires_wib'] }}
                             </div>
                         </div>
                     </div>
 
                     <a href="{{ route('warning.detail') }}"
-                        class="ml-9 md:ml-0 bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-1 md:py-2 mt-1 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-auto flex items-center justify-start md:justify-end gap-1.5">
+                        class="ml-9 md:ml-0 bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-1 md:py-2 -mt-2 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-auto flex items-center justify-start md:justify-end gap-1.5">
                         <span>Lihat Peta Persebaran</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                             stroke="currentColor" class="w-3.5 h-3.5 md:w-4 md:h-4">
