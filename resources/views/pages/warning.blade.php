@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="warning-container p-5 md:p-[30px_40px] m-0 w-full box-border">
+    <div class="warning-container p-5 md:p-[30px_40px] m-0 w-full max-w-full overflow-x-hidden box-border">
         <div class="warning-header mb-4 md:mb-6">
             <h1 class="page-title text-[15px] md:text-[20px] font-bold text-slate-800 m-0 mb-1 md:mb-1.5">Informasi
                 Peringatan Dini</h1>
@@ -26,7 +26,7 @@
                 class="warning-card bg-orange-50 border border-orange-200 rounded-lg overflow-hidden w-full h-auto flex flex-col">
                 <div
                     class="warning-card-header p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-start gap-3 md:gap-8">
-                    <div class="warning-title-wrapper flex gap-3 md:gap-4 items-start flex-1">
+                    <div class="warning-title-wrapper flex gap-3 md:gap-4 items-start flex-1 min-w-0">
 
                         @if($iconType === 'petir')
                             <svg class="shrink-0 w-6 h-7 md:w-8 md:h-8 md:mt-1.5" viewBox="0 0 24 24" fill="none" stroke="#ea580c"
@@ -59,26 +59,26 @@
                             </svg>
                         @endif
 
-                        <div class="warning-title-text w-full md:pr-6">
-                            <p class="text-orange-600 font-bold text-xs md:text-sm m-0 mb-1 capitalize tracking-wide">
+                        <div class="warning-title-text flex-1 min-w-0 md:pr-6">
+                            <p class="text-orange-600 font-bold text-xs md:text-sm m-0 mb-1 capitalize tracking-wide truncate">
                                 {{ strtolower($warning['event']) }}
                             </p>
 
-                            <h2 class="text-[13px] md:text-base font-bold text-slate-800 m-0 mb-2 md:mb-3">
+                            <h2 class="text-[13px] md:text-base font-bold text-slate-800 m-0 mb-2 md:mb-3 break-words">
                                 {{ $warning['title'] }}</h2>
                             <p
                                 class="warning-summary text-justify pr-6 md:pr-0 text-[12px] md:text-sm text-slate-600 m-0 mb-3 md:mb-5 leading-relaxed">
                                 {{ $warning['description'] }}
                             </p>
                             <div
-                                class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-1 md:mb-4">
+                                class="warning-time-badge inline-block bg-orange-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-xs font-semibold mb-0 md:mb-4">
                                 Berlaku: {{ $warning['effective_wib'] }} - {{ $warning['expires_wib'] }}
                             </div>
                         </div>
                     </div>
 
                     <a href="{{ route('warning.detail') }}"
-                        class="ml-9 md:ml-0 bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[12px] md:text-sm py-1 md:py-2 -mt-2 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-auto flex items-center justify-start md:justify-end gap-1.5">
+                        class="ml-9 md:ml-0 bg-transparent hover:text-orange-700 text-orange-600 font-bold text-[13px] md:text-sm py-1 md:py-2 -mt-2 md:mt-0 transition-colors whitespace-nowrap text-left md:text-right self-start md:self-auto no-underline w-auto flex items-center justify-start md:justify-end gap-1.5">
                         <span>Lihat Peta Persebaran</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                             stroke="currentColor" class="w-3.5 h-3.5 md:w-4 md:h-4">
