@@ -15,16 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
             let hasBounds = false;
 
             let rawEvent = warningData.event || 'Cuaca Ekstrem'; 
+            let eventLower = rawEvent.toLowerCase();
             let badgeIcon = '⚠️';
             let badgeText = rawEvent;
 
-            if (rawEvent.toLowerCase().includes('petir') || rawEvent.toLowerCase().includes('kilat')) {
-                badgeIcon = '⛈️';
-                badgeText = 'Hujan Petir';
-            } else if (rawEvent.toLowerCase().includes('hujan lebat')) {
+            if (eventLower.includes('hujan lebat')) {
                 badgeIcon = '🌧️';
                 badgeText = 'Hujan Lebat';
-            } else if (rawEvent.toLowerCase().includes('angin')) {
+            } 
+            else if (eventLower.includes('petir') || eventLower.includes('kilat')) {
+                badgeIcon = '⛈️';
+                badgeText = 'Hujan Petir';
+            } 
+            else if (eventLower.includes('angin')) {
                 badgeIcon = '💨';
                 badgeText = 'Angin Kencang';
             }
