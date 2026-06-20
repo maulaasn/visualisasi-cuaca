@@ -10,8 +10,8 @@
                 </svg>
             </a>
             <div>
-                <h1 class="text-sm font-bold text-slate-800">Detail Berita</h1>
-                <p class="text-slate-500 text-[13px]">Tinjauan lengkap informasi berita cuaca</p>
+                <h1 class="text-[15px] font-bold text-slate-800">Detail Berita</h1>
+                <p class="text-slate-500 text-[14px]">Tinjauan lengkap informasi berita cuaca</p>
             </div>
         </div>
 
