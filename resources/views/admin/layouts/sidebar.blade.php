@@ -140,7 +140,7 @@
                     </svg>
                 </div>
                 
-                <p class="text-[14px] text-slate-500 mb-8 px-2">Apakah anda yakin ingin keluar dari halaman admin?</p>
+                <p class="text-[14px] text-slate-500 mb-8 px-2">Apakah anda yakin ingin keluar dari dashboard admin?</p>
                 
                 <div class="flex gap-3 w-full">
                     <button type="button" onclick="hideLogoutModal()" class="flex-1 px-4 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 text-sm font-bold rounded-lg transition-colors border border-slate-300 shadow-sm cursor-pointer">
