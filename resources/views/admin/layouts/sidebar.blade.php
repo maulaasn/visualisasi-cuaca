@@ -17,7 +17,7 @@
 </head>
 <body class="bg-slate-50 flex h-screen overflow-hidden relative">
 
-    <div class="w-[290px] bg-[#1b2579] text-white flex flex-col shrink-0 shadow-xl z-20">
+    <div class="w-[290px] bg-[#1b2579] text-white flex flex-col shrink-0 shadow-xl z-[9999]">
         
         <div class="pt-8 pb-6 flex flex-col items-center border-b border-white/10 mx-5">
             <div class="bg-[#c2cae6] px-5 py-2.5 rounded-full flex items-center gap-1.5 shadow-sm">
