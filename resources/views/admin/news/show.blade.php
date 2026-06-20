@@ -22,7 +22,7 @@
             </h1>
 
             <div class="flex items-center gap-4 border-b border-slate-200 pb-4 mb-6">
-                <div class="flex items-center gap-1.5 text-slate-500 text-[12px] md:text-sm font-normal">
+                <div class="flex items-center gap-1.5 text-slate-500 text-[12px] md:text-[13px] font-normal">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.5">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-linecap="round"
@@ -34,7 +34,7 @@
                     {{ \Carbon\Carbon::parse($news->news_date)->translatedFormat('l, j F Y') }}
                 </div>
 
-                <div class="flex items-center gap-1.5 text-slate-500 text-[12px] md:text-sm font-medium">
+                <div class="flex items-center gap-1.5 text-slate-500 text-[12px] md:text-[13px] font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round"
