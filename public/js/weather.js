@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 color: 'white',
                 dashArray: '',
                 opacity: 1,
-                fillOpacity: 0.8,
+                fillOpacity: 0.7,
             });
         } else {
             layer.setStyle({
