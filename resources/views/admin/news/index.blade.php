@@ -4,7 +4,7 @@
     <div class="p-7.5">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-xl font-bold text-slate-800">Berita Terbaru</h1>
+                <h1 class="text-lg font-bold text-slate-800">Berita Terbaru</h1>
                 <p class="text-slate-500 text-sm mt-1">Kelola informasi berita cuaca terkini</p>
             </div>
             <a href="{{ route('admin.news.create') }}" class="px-4 py-2.5 bg-[#1e3a8a] text-white rounded-lg text-sm font-semibold hover:bg-blue-800 transition-colors flex items-center gap-2 shadow-sm">
