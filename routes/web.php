@@ -43,6 +43,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         if (!$warning && !\Illuminate\Support\Facades\Cache::has('bmkg.warning.jatim.checked_at')) {
             $warning = $service->fetchAndCacheJatimWarning();
         }
+        if (empty($warning)) {
+            return redirect()->route('admin.warning');
+        }
+        
         $checkedAt = \Illuminate\Support\Facades\Cache::get('bmkg.warning.jatim.checked_at', date('d F Y, H:i') . ' WIB');
         
         return view('admin.detail-warning', compact('warning', 'checkedAt'));

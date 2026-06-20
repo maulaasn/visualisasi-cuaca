@@ -31,6 +31,9 @@ class WarningController extends Controller
         if (!$warning && !Cache::has('bmkg.warning.jatim.checked_at')) {
             $warning = $service->fetchAndCacheJatimWarning();
         }
+        if (empty($warning)) {
+            return redirect()->route('warning.index');
+        }
 
         $rawCheckedAt = Cache::get('bmkg.warning.jatim.checked_at', now());
 
