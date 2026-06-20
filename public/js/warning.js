@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let map = L.map('full-map').setView([-7.75, 112.75], 8); 
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
         if (typeof warningData !== 'undefined' && warningData && warningData.areas) {
